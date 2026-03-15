@@ -1,0 +1,71 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id          String       @id @default(cuid())
+  name        String
+  email       String       @unique
+  role        String       @default("Student") // Student / Instructor / Admin
+  courses     Course[]     @relation("InstructorCourses")
+  enrollments Enrollment[]
+  progress    Progress[]
+}
+
+model Course {
+  id           String       @id @default(cuid())
+  title        String
+  description  String
+  thumbnail    String?
+  category     String?
+  instructorId String
+  instructor   User         @relation("InstructorCourses", fields: [instructorId], references: [id])
+  sections     Section[]
+  enrollments  Enrollment[]
+}
+
+model Section {
+  id       String   @id @default(cuid())
+  title    String
+  courseId String
+  course   Course   @relation(fields: [courseId], references: [id])
+  lessons  Lesson[]
+}
+
+model Lesson {
+  id           String   @id @default(cuid())
+  title        String
+  order        Int
+  youtubeUrl   String
+  duration     String?
+  sectionId    String
+  section      Section  @relation(fields: [sectionId], references: [id])
+}
+
+model Enrollment {
+  id             String   @id @default(cuid())
+  userId         String
+  courseId       String
+  enrollmentDate DateTime @default(now())
+  user           User     @relation(fields: [userId], references: [id])
+  course         Course   @relation(fields: [courseId], references: [id])
+
+  @@unique([userId, courseId])
+}
+
+model Progress {
+  id                String   @id @default(cuid())
+  userId            String
+  courseId          String
+  completedLessons  String   // JSON string of completed lesson IDs
+  percentage        Int      @default(0)
+  lastWatchedLesson String?
+  user              User     @relation(fields: [userId], references: [id])
+
+  @@unique([userId, courseId])
+}
