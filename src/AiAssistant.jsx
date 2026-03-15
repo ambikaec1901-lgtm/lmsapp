@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import { X, Send, Bot, User } from 'lucide-react';
 import './AiAssistant.css';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+
 export default function AiAssistant({ onClose }) {
   const [messages, setMessages] = useState([
     { role: 'ai', text: 'Hello! I am your AI learning assistant. How can I help you with your courses today?' }
@@ -28,7 +30,7 @@ export default function AiAssistant({ onClose }) {
     setIsLoading(true);
 
     try {
-      const res = await fetch('http://localhost:5000/api/ai/chat', {
+      const res = await fetch(`${API_URL}/ai/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: userMsg })
