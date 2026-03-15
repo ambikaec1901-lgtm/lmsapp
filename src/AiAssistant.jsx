@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { X, Send, Bot, User } from 'lucide-react';
 import './AiAssistant.css';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+import { API_URL } from './config';
 
 export default function AiAssistant({ onClose }) {
   const [messages, setMessages] = useState([

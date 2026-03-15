@@ -5,9 +5,9 @@ import Auth from './Auth';
 import Landing from './Landing';
 import CourseBuy from './CourseBuy';
 import AiAssistant from './AiAssistant';
+import { API_URL } from './config';
 
 // Real Backend API Service integration
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
 const backendService = {
   getAvailableCourses: async () => {

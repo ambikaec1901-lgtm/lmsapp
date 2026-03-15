@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Mail, Lock, User, ArrowRight, Github } from 'lucide-react';
 import './Auth.css';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+import { API_URL } from './config';
 
 export default function Auth({ onLogin }) {
   const [isSignUp, setIsSignUp] = useState(false);
