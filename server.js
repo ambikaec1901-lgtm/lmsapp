@@ -9,6 +9,47 @@ const prisma = new PrismaClient();
 app.use(cors());
 app.use(express.json());
 
+// --- Auto-Seed Logic for Vercel/Demo ---
+async function autoSeed() {
+  try {
+    const courseCount = await prisma.course.count();
+    if (courseCount === 0) {
+      console.log("Database empty, auto-seeding sample courses...");
+      let instructor = await prisma.user.findFirst({ where: { role: 'Instructor' } });
+      if (!instructor) {
+        instructor = await prisma.user.create({
+          data: { name: 'Dr. Instructor', email: 'instructor@example.com', role: 'Instructor' }
+        });
+      }
+      
+      await prisma.course.create({
+        data: {
+          title: 'Java Course',
+          description: 'Master Java basics, variables, and OOP.',
+          thumbnail: 'https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=800&q=80',
+          category: 'Software Engineering',
+          instructorId: instructor.id,
+          sections: {
+            create: [{
+              title: 'Basics',
+              lessons: {
+                create: [
+                  { title: 'Variables', order: 1, youtubeUrl: 'w7ejDZ8SWv8', duration: '10m' },
+                  { title: 'Data Types', order: 2, youtubeUrl: 'xTtL8E4LzTQ', duration: '15m' }
+                ]
+              }
+            }]
+          }
+        }
+      });
+      console.log("Auto-seed complete.");
+    }
+  } catch (err) {
+    console.error("Auto-seed error:", err);
+  }
+}
+autoSeed();
+
 // --- Authentication & Authorization ---
 app.post('/api/auth/login', async (req, res) => {
   const { name, email, role } = req.body;
