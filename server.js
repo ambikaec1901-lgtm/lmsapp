@@ -135,9 +135,11 @@ app.post('/api/ai/chat', async (req, res) => {
 });
 
 const SAMPLE_COURSES = [
-  { id: 'c1', title: 'Java Course', description: 'Master Java basics, variables, and OOP.', thumbnail: 'https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=800&q=80', category: 'Software Engineering', instructor: 'Dr. Instructor', rating: 4.8, reviews: "1,500", price: 999, originalPrice: 1999, discount: "50%", color: "#007acc" },
-  { id: 'c2', title: 'React.js Complete Guide', description: 'Master frontend with React JS.', thumbnail: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&q=80', category: 'Web Development', instructor: 'Dr. Instructor', rating: 4.9, reviews: "2,100", price: 1299, originalPrice: 2499, discount: "48%", color: "#61dafb" },
-  { id: 'c3', title: 'Python Masterclass', description: 'Learn Python programming from scratch.', thumbnail: 'https://images.unsplash.com/photo-1526379095098-d400fd0bfce8?w=800&q=80', category: 'Programming', instructor: 'Dr. Instructor', rating: 4.7, reviews: "800", price: 899, originalPrice: 1599, discount: "44%", color: "#3776ab" }
+  { id: 'c1', title: 'Data Science Bootcamp', description: 'Master Data Science, Machine Learning, and Data Analysis.', thumbnail: 'https://images.unsplash.com/photo-1551288049-bbbda536ad37?w=800&q=80', category: 'Data Science', instructor: 'Dr. Data', rating: 4.8, reviews: "1,500", price: 999, originalPrice: 1999, discount: "50%", color: "#007acc" },
+  { id: 'c2', title: 'Mastering HTML & CSS', description: 'Build stunning responsive websites from scratch.', thumbnail: 'https://images.unsplash.com/photo-1587620962725-abab7fe55159?w=800&q=80', category: 'Web Development', instructor: 'Web Master', rating: 4.9, reviews: "2,100", price: 499, originalPrice: 999, discount: "50%", color: "#f06529" },
+  { id: 'c3', title: 'JavaScript Specialist', description: 'Master modern JavaScript (ES6+) and asynchronous programming.', thumbnail: 'https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?w=800&q=80', category: 'Programming', instructor: 'JS Wizard', rating: 4.7, reviews: "1,800", price: 799, originalPrice: 1499, discount: "46%", color: "#f7df1e" },
+  { id: 'c4', title: 'SQL & Database Engineering', description: 'Master SQL, PostgreSQL, and database design.', thumbnail: 'https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=800&q=80', category: 'Database', instructor: 'DB Pro', rating: 4.6, reviews: "1,200", price: 699, originalPrice: 1299, discount: "46%", color: "#336791" },
+  { id: 'c5', title: 'Java Course', description: 'Master Java basics, variables, and OOP.', thumbnail: 'https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=800&q=80', category: 'Software Engineering', instructor: 'Dr. Instructor', rating: 4.8, reviews: "1,500", price: 999, originalPrice: 1999, discount: "50%", color: "#007acc" }
 ];
 
 // --- Course Management & Returning Lesson Data ---
