@@ -1,10 +1,16 @@
-/* global process */
+import'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import { PrismaClient } from '@prisma/client';
 
 const app = express();
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+  datasources: {
+    db: {
+      url: process.env.DATABASE_URL || "file:./dev.db",
+    },
+  },
+});
 
 app.use(cors());
 app.use(express.json());
