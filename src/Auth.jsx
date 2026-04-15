@@ -31,7 +31,7 @@ export default function Auth({ onLogin }) {
       onLogin(userData);
     } catch (err) {
       console.error(err);
-      alert("Failed backend login.");
+      alert("Login Error: " + err.message);
     }
   };
 
