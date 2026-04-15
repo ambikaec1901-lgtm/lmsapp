@@ -1,13 +1,19 @@
+import path from 'path';
+import { fileURLToPath } from 'url';
 import'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import { PrismaClient } from '@prisma/client';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const dbPath = path.resolve(__dirname, 'dev.db');
+
 const app = express();
 const prisma = new PrismaClient({
   datasources: {
     db: {
-      url: process.env.DATABASE_URL || "file:./dev.db",
+      url: process.env.DATABASE_URL || `file:${dbPath}`,
     },
   },
 });
