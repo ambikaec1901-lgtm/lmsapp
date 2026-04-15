@@ -23,6 +23,10 @@ export default function Auth({ onLogin }) {
           role 
         })
       });
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.error || 'Login failed');
+      }
       const userData = await res.json();
       onLogin(userData);
     } catch (err) {
