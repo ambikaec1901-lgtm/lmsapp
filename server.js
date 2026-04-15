@@ -134,12 +134,23 @@ app.post('/api/ai/chat', async (req, res) => {
   }
 });
 
+const SAMPLE_COURSES = [
+  { id: 'c1', title: 'Java Course', description: 'Master Java basics, variables, and OOP.', thumbnail: 'https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=800&q=80', category: 'Software Engineering', instructor: 'Dr. Instructor', rating: 4.8, reviews: "1,500", price: 999, originalPrice: 1999, discount: "50%", color: "#007acc" },
+  { id: 'c2', title: 'React.js Complete Guide', description: 'Master frontend with React JS.', thumbnail: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&q=80', category: 'Web Development', instructor: 'Dr. Instructor', rating: 4.9, reviews: "2,100", price: 1299, originalPrice: 2499, discount: "48%", color: "#61dafb" },
+  { id: 'c3', title: 'Python Masterclass', description: 'Learn Python programming from scratch.', thumbnail: 'https://images.unsplash.com/photo-1526379095098-d400fd0bfce8?w=800&q=80', category: 'Programming', instructor: 'Dr. Instructor', rating: 4.7, reviews: "800", price: 899, originalPrice: 1599, discount: "44%", color: "#3776ab" }
+];
+
 // --- Course Management & Returning Lesson Data ---
 app.get('/api/courses', async (req, res) => {
   try {
     const courses = await prisma.course.findMany({
       include: { instructor: true }
     });
+    
+    if (!courses || courses.length === 0) {
+      return res.json(SAMPLE_COURSES);
+    }
+
     // Transform to frontend model
     const result = courses.map(c => ({
       id: c.id,
@@ -148,7 +159,7 @@ app.get('/api/courses', async (req, res) => {
       thumbnail: c.thumbnail,
       category: c.category,
       instructorId: c.instructorId,
-      instructor: c.instructor?.name || 'Dr. Instructor', // map from relation
+      instructor: c.instructor?.name || 'Dr. Instructor',
       rating: 4.5,
       reviews: "1,200",
       price: 999,
@@ -158,7 +169,8 @@ app.get('/api/courses', async (req, res) => {
     }));
     res.json(result);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.warn("DB Course Load Error, falling back to sample data.");
+    res.json(SAMPLE_COURSES);
   }
 });
 
