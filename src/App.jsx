@@ -4,6 +4,7 @@ import './index.css';
 import Auth from './Auth';
 import Landing from './Landing';
 import CourseBuy from './CourseBuy';
+import Checkout from './Checkout';
 import AiAssistant from './AiAssistant';
 import { API_URL } from './config';
 
@@ -250,7 +251,17 @@ function App() {
         <CourseBuy 
           course={selectedBuyCourse} 
           onBack={() => setCurrentView('landing')}
-          onPurchase={async () => {
+          onPurchase={() => {
+            setCurrentView('checkout');
+          }}
+        />
+      )}
+
+      {currentView === 'checkout' && (
+        <Checkout 
+          course={selectedBuyCourse}
+          onBack={() => setCurrentView('buy')}
+          onComplete={async () => {
             setLoading(true);
             await backendService.enrollInCourse(user.id, selectedBuyCourse.id);
             setLoading(false);
